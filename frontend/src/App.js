@@ -86,7 +86,7 @@ function App({ contract, currentUser, nearConfig, wallet }) {
       </div>
       <div className="menu">
         <div className="claim">
-          {claim ? <p>Amount: 0</p>: <p>Amount: 100</p>}
+          {claim ? <p>Amount: 0</p>: <p>Amount: 1000</p>}
           {claim ? <p>Has claimed</p>: <button onClick={clickClaim}>Claim</button>}
         </div>
         <div className="balance">
