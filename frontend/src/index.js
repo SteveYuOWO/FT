@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as nearAPI from 'near-api-js';
-import getConfig from './config.js';
+import getConfig, { CONTRACT_NAME } from './config.js';
 import reportWebVitals from './reportWebVitals';
 
 
@@ -41,12 +41,12 @@ async function initContract() {
     // accountId of the contract we will be loading
     // NOTE: All contracts on NEAR are deployed to an account and
     // accounts can only have one contract deployed to them. 
-    'stevenft.steveyu.testnet',
+    CONTRACT_NAME,
     {
       // View methods are read-only – they don't modify the state, but usually return some value
-      viewMethods: ['nft_token'],
+      viewMethods: ['ft_metadata', 'get_balance'],
       // Change methods can modify the state, but you don't receive the returned value when called
-      changeMethods: ['mint'],
+      changeMethods: ['claim', 'transfer'],
       // Sender is the account ID to initialize transactions.
       // getAccountId() will return empty string if user is still unauthorized
       sender: walletConnection.getAccountId(),
@@ -56,12 +56,22 @@ async function initContract() {
   return { contract, currentUser, nearConfig, walletConnection };
 }
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+window.nearInitPromise = initContract().then(
+  ({ contract, currentUser, nearConfig, walletConnection }) => {
+    ReactDOM.render(
+      <React.StrictMode>
+        <App 
+          contract={contract}
+          currentUser={currentUser}
+          nearConfig={nearConfig}
+          wallet={walletConnection} 
+        />
+      </React.StrictMode>,
+      document.getElementById('root')
+    );
+  }
+)
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

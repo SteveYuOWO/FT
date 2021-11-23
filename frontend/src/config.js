@@ -1,4 +1,4 @@
-const CONTRACT_NAME = process.env.CONTRACT_NAME || 'stevenft.steveyu.testnet';
+export const CONTRACT_NAME = process.env.CONTRACT_NAME || 'stevetoken.steveyu.testnet';
 
 function getConfig(env) {
   switch(env) {
@@ -58,4 +58,4 @@ function getConfig(env) {
   }
 }
 
-module.exports = getConfig;
+export default getConfig;
