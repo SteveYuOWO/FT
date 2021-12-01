@@ -7,25 +7,28 @@ import NEAR from "./assets/logo-white.svg";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from './components/Loading';
+import animation from './assets/animation.gif'
+import Rock from './assets/rock.png';
+import Paper from './assets/paper.png';
+import Scissors from './assets/scissors.png';
 
 function App({ contract, currentUser, nearConfig, wallet }) {
   const [accountId, setAccountId] = useState("");
-  const [claim, setClaim] = useState(true);
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [loadingScore, setLoadingScore] = useState(false);
 
-  const [transferAmount, setTransferAmount] = useState(0);
-  const [transferAccount, setTransferAccount] = useState("")
+  const [choose, setChoose] = useState(-1);
+  const [computerChoose, setComputerChoose] = useState(-1);
+
   useEffect(() => {
     if(currentUser) {
       setAccountId(currentUser.accountId);
       setLoading(true);
       contract.get_balance().then((balance) => {
-        setClaim(true);
         setBalance(balance);
       }).catch((err) => {
         console.log(err);
-        setClaim(false);
       }).finally(() => {
         setLoading(false);
       })
@@ -37,40 +40,59 @@ function App({ contract, currentUser, nearConfig, wallet }) {
       <Login wallet={wallet} nearConfig={nearConfig}/>
     </div>
   }
-
-  const clickClaim = () => {
-    setLoading(true);
-    contract.claim().then(() => {
-      contract.get_balance().then((balance) => {
-        console.log(balance);
-        setBalance(balance);
-        setClaim(true);
-        toast.success("Claim success!");
-      }).finally(() => setLoading(false));
-    }).catch(() => {
-      setLoading(false);
-      toast.error("Claim failed, Has claimed!");
-    })
-  }
-
-  const transfer = () => {
-    setLoading(true);
-    contract.transfer({
-      receiver_id: transferAccount,
-      amount: transferAmount,
-    }).then(res => {
-      contract.get_balance().then((balance) => {
-        setBalance(balance);
-        toast.success("Transfer success!");
-        setLoading(false);
-      })
-    }).catch(err => {
-      console.log(err)
-      toast.error("Transfer failed!");
-      setLoading(false);
-    })
-  }
   
+  const chooseSigniture = (choose0) => {
+    // 0 1 2 rock paper scissors
+    setChoose(choose0);
+    // 0 1 2 rock paper scissors
+    const computerChoose0 = Math.floor(Math.random() * 3);
+    setComputerChoose(computerChoose0);
+
+    if(choose0 === computerChoose0) {
+      toast.warning("Tie!");
+    } else if((choose0 === 0 && computerChoose0 === 2) || (choose0 === 1 && computerChoose0 === 0) || (choose0 === 2 && computerChoose0 === 1)) {
+      toast.success("You win!");
+      setLoadingScore(true);
+      contract.win().then(() => {
+        contract.get_balance().then((balance) => {
+          setBalance(balance);
+          setLoadingScore(false);
+        })
+      }).catch((err) => {
+        setLoadingScore(false);
+        toast.error('Network not stable, update score failed');
+      })
+    } else {
+      toast.error("You lose!");
+      setLoadingScore(true);
+      contract.lose().then(() => {
+        contract.get_balance().then((balance) => {
+          setBalance(balance);
+          setLoadingScore(false);
+        })
+      }).catch((err) => {
+        setLoadingScore(false);
+        toast.error('Network not stable, update score failed');
+      })
+    }
+  }
+
+  let buttonGroup = <>
+    {choose === -1 && <div className="btn-group">
+      <button onClick={() => chooseSigniture(0)}>ROCK</button>
+      <button onClick={() => chooseSigniture(1)}>PAPER</button>
+      <button onClick={() => chooseSigniture(2)}>SCISSORS</button>
+    </div>}
+    {choose !== -1 && <div className="btn-group">
+      <button onClick={() => {setChoose(-1); setComputerChoose(-1)}}>RESTART</button>
+    </div>}
+  </>
+
+  if(loadingScore) {
+    buttonGroup = <button disabled>
+      loading...
+    </button>
+  }
   return (
     <>
     {loading && <Loading />}
@@ -79,44 +101,36 @@ function App({ contract, currentUser, nearConfig, wallet }) {
         <img src={STEVE} width="300px" height="300px" alt="STEVE" />
         <img src={NEAR} width="300px" height="300px" alt="NEAR" />
       </div>
-      <h1>$STEVE Airdrop</h1>
+      <h1>Rock paper scissors</h1>
       <div className="nav">
         <h3>Login as {accountId}</h3>
         <button onClick={() => signOut({wallet})}>Logout</button>
       </div>
       <div className="menu">
-        <div className="claim">
-          {claim ? <p>Amount: 0</p>: <p>Amount: 1000</p>}
-          {claim ? <p>Has claimed</p>: <button onClick={clickClaim}>Claim</button>}
-        </div>
         <div className="balance">
-          <p>Balance: {balance}</p>
-          <div className="btn-group">
+          {loadingScore && <p style={{marginTop: 20}}>Fetch balance, waiting...</p>}
+          {!loadingScore && <p style={{marginTop: 20}}>Balance: {balance}</p>}
+          <div className="game-view">
+            <div>Player</div>
             <div>
-              <input 
-                type="text" 
-                className="input-text" 
-                placeholder="Input transfer amount"
-                onChange={(e) => {
-                  const number = Number.parseInt(e.target.value);
-                  setTransferAmount(number);
-                }} />
+              {choose === -1 && <img src={animation} width={100} height={100} alt="animation"/>}
+              {choose === 0 && <img src={Rock} width={100} height={100} alt="rock"/>}
+              {choose === 1 && <img src={Paper} width={100} height={100} alt="paper"/>}
+              {choose === 2 && <img src={Scissors} width={100} height={100} alt="scissors"/>}
             </div>
             <div>
-              <input 
-                type="text" 
-                className="input-text" 
-                placeholder="Input transfer account"
-                onChange={(e) => {
-                  setTransferAccount(e.target.value);
-                }}/>
+              {computerChoose === -1 && <img style={{transform: 'rotateY(180deg)'}} src={animation} width={100} height={100} alt="animation"/>}
+              {computerChoose === 0 && <img style={{transform: 'rotateY(180deg)'}} src={Rock} width={100} height={100} alt="rock"/>}
+              {computerChoose === 1 && <img style={{transform: 'rotateY(180deg)'}} src={Paper} width={100} height={100} alt="paper"/>}
+              {computerChoose === 2 && <img style={{transform: 'rotateY(180deg)'}} src={Scissors} width={100} height={100} alt="scissors"/>}
             </div>
-            <button onClick={transfer}>Transfer</button>
+            <div>Computer</div>
           </div>
+          {buttonGroup}
         </div>
       </div>
-      <ToastContainer />
     </main>
+    <ToastContainer />
     </>
   );
 }

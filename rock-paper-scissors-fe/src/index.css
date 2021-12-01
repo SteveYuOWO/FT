@@ -114,7 +114,6 @@ p {
 .menu .balance {
   color: white;
   width: 500px;
-  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -160,16 +159,15 @@ p {
 .btn-group {
   display: flex;
   justify-content: center;
-  flex-direction: column;
   align-items: center;
-  margin-top: 10px;
+}
+
+.btn-group button {
+  margin: 20px 10px;
 }
 
 .btn-group input {
   margin-bottom: 10px;
-}
-.btn-group button {
-  margin: 0;
 }
 .input-text {
   width: 200px;
@@ -178,4 +176,23 @@ p {
   margin-right: 20px;
   border-radius: 5px;
   background: white;
+}
+
+.game-view {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.game-view > div {
+  margin: 10px;
+}
+
+button[disabled] {
+  background: gray;
+}
+button[disabled]:hover {
+  background: gray;
+  border: none;
+  color: white;
 }

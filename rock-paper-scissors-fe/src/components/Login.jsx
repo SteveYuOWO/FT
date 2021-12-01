@@ -11,20 +11,17 @@ const Login = ({ wallet, nearConfig }) => {
         <img src={STEVE} width="300px" height="300px" alt="STEVE" />
         <img src={NEAR} width="300px" height="300px" alt="NEAR" />
       </div>
-      <h1 className="gray">$STEVE Airdrop Login</h1>
+      <h1 className="gray">Rock paper scissors</h1>
       <p className="content">
         <strong>
-          <font className="coral">Thanks for watching my portfolio</font>
-        </strong>
-        , STEVE tokens are designed for the <strong>NEAR Challenge</strong>.{" "}
+          <font className="coral">Thanks</font>
+        </strong>{" "}
+        for watching my portfolio
         <br />
-        You can <strong>claim</strong> to get the initial tokens and{" "}
-        <strong>transfer</strong> them immediately afterwards. For the{" "}
-        <strong>UI design</strong>, I used the elements used in the previous
-        challenge, representing my personal identity. Welcome to the awesome{" "}
         <strong>
-          <font className="coral">STEVE WALLET</font>
+          <font className="coral">Rock paper scissors</font>
         </strong>
+        , designed for <strong>near challenge</strong>
       </p>
       <button onClick={() => signIn({ wallet, nearConfig })}>Login</button>
     </main>
