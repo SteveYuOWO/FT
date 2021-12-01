@@ -98,13 +98,24 @@ function App({ contract, currentUser, nearConfig, wallet }) {
     {loading && <Loading />}
     <main className={loading ? "blur": ""}>
       <div className="profile">
-        <img src={STEVE} width="300px" height="300px" alt="STEVE" />
-        <img src={NEAR} width="300px" height="300px" alt="NEAR" />
+        <img src={STEVE} width="200px" height="200px" alt="STEVE" />
+        <img src={NEAR} width="200px" height="200px" alt="NEAR" />
       </div>
       <h1>Rock paper scissors</h1>
       <div className="nav">
         <h3>Login as {accountId}</h3>
         <button onClick={() => signOut({wallet})}>Logout</button>
+      </div>
+      <div>
+        <p>
+          <strong>
+            If you don't have $STEVE, claim from <a href="https://www.steveyuowo.com/airdrop">
+              <strong>
+                <font className="coral">here</font>
+              </strong>
+            </a>
+          </strong>
+        </p>
       </div>
       <div className="menu">
         <div className="balance">
