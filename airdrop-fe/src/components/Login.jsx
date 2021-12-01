@@ -8,8 +8,8 @@ const Login = ({ wallet, nearConfig }) => {
   return (
     <main>
       <div className="profile">
-        <img src={STEVE} width="300px" height="300px" alt="STEVE" />
-        <img src={NEAR} width="300px" height="300px" alt="NEAR" />
+        <img src={STEVE} width="200px" height="200px" alt="STEVE" />
+        <img src={NEAR} width="200px" height="200px" alt="NEAR" />
       </div>
       <h1 className="gray">$STEVE Airdrop Login</h1>
       <p className="content">
