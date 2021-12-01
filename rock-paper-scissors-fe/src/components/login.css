@@ -1,0 +1,16 @@
+.profile {
+  margin-bottom: 50px;
+  display: flex;
+}
+
+.content {
+  text-align: center;
+  max-width: 800px;
+  margin-top: 25px;
+  font-weight: 500;
+  line-height: 30px;
+}
+
+button {
+  margin-top: 20px;
+}

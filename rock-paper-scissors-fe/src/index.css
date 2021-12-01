@@ -1,0 +1,181 @@
+* {
+  padding: 0;
+  margin: 0;
+  color: rgb(61, 61, 61);
+}
+
+body {
+  --primary: rgb(118, 32, 255);
+  --secondary: white;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: bisque;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+strong {
+  color: rgb(118, 32, 255);
+}
+
+.coral {
+  color: rgb(255, 100, 80);
+}
+
+.gray {
+  color: rgb(82, 82, 82);
+}
+
+input {
+  border: none;
+}
+input:read-only {
+  color: var(--primary);
+}
+
+button,
+input {
+  color: white;
+  transition: all 0.2s ease-in-out;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  outline: none;
+}
+
+button {
+  font-weight: 600;
+  position: relative;
+  background: rgb(86, 83, 255);
+  transition: top 50ms;
+}
+button:active {
+  background: var(--secondary);
+  color: var(--primary);
+}
+
+button {
+  border-radius: 5px;
+  border: none;
+  padding: 0.5em 1em;
+  transition: all 0.2s ease-in-out;
+}
+button:hover {
+  background: white;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+p {
+  text-align: center;
+  max-width: 800px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+.menu {
+  margin-top: 40px;
+  display: flex;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu .claim {
+  width: 180px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgb(255, 202, 159);
+  border-radius: 10px 0 0 10px;
+}
+
+.menu:hover {
+  transform: scale(1.04);
+}
+
+.menu .balance {
+  color: white;
+  width: 500px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgb(255, 209, 57);
+  border-radius: 0 10px 10px 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+}
+.nav button {
+  margin: 0;
+  margin-left: 20px;
+  background: rgb(255, 129, 56);
+}
+.nav button:hover {
+  border: 1px solid rgb(255, 129, 56);
+  background: white;
+  color: rgb(255, 129, 56);
+}
+
+.loading {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  transform: scale(0.6);
+}
+
+.blur {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.btn-group input {
+  margin-bottom: 10px;
+}
+.btn-group button {
+  margin: 0;
+}
+.input-text {
+  width: 200px;
+  color: rgb(63, 63, 63);
+  padding: 8px 10px;
+  margin-right: 20px;
+  border-radius: 5px;
+  background: white;
+}
